@@ -583,7 +583,6 @@ def catodo():
     img = Label(catodo, image=logo_cba_catodo)
     img.image = logo_cba_catodo
     img.place(x=50, y=10)
-
     
     def fechar_catodo():
         catodo.destroy()
