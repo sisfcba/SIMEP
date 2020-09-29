@@ -1,11 +1,8 @@
-<<<<<<< HEAD:SIMEP.py
 '''
 Sistema de Medições de Processo
 v0.1 - Initial Commit: Marcelo Souza / Robson Soares - 29/09/2020
----
+
 '''
-=======
->>>>>>> parent of 7c06504... Stable version:SIMEP280920.py
 import _tkinter
 from tkinter import *
 from tkinter import Tk, Label
@@ -593,12 +590,23 @@ def catodo():
     #================== ENVIAR  DADOS  NA TABELA CATODO  NO MYSQL====================================
     def enviar_catodo():
         data=datetime.now()
-        cursor.execute("""INSERT INTO tablet8.catodo (Data, Forno, Banho, Temperatura, Metal, Lombo, Usuario) VALUES (%s,%s,%s,%s,%s,%s,%s)""",(data,var_forno_atual, entry_banho.get(), entry_temperatura.get(), entry_metal.get(), ComboLombo.get(), user))
-        con.commit()
-
-        
-        #cursor.execute("""INSERT INTO tablet8.catodo (Data, Forno, Banho, Temperatura, Metal, Lombo) VALUES (%s,%s,%s,%s,%s,%s)""",(0,0,0,0,0,0)
+        #cursor.execute("""INSERT INTO tablet8.catodo (Data, Forno, Banho, Temperatura, Metal, Lombo, Usuario) VALUES (%s,%s,%s,%s,%s,%s,%s)""",(data,var_forno_atual, entry_banho.get(), entry_temperatura.get(), entry_metal.get(), ComboLombo.get(), user))
         #con.commit()
+
+        if (entry_banho.get() != ""): 
+            cursor.execute("""INSERT INTO tablet8.catodo (Data, Sala, Forno, Variavel, Valor, Usuario) VALUES (%s,%s,%s,%s,%s,%s)""",(data,"3", var_forno_atual, "banho", entry_banho.get(), user))
+            con.commit()
+        if (entry_metal.get() != ""): 
+            cursor.execute("""INSERT INTO tablet8.catodo (Data, Sala, Forno, Variavel, Valor, Usuario) VALUES (%s,%s,%s,%s,%s,%s)""",(data,"3", var_forno_atual, "metal", entry_metal.get(), user))
+            con.commit()
+        if (entry_temperatura.get() != ""): 
+            cursor.execute("""INSERT INTO tablet8.catodo (Data, Sala, Forno, Variavel, Valor, Usuario) VALUES (%s,%s,%s,%s,%s,%s)""",(data,"3", var_forno_atual, "temperatura", entry_temperatura.get(), user))
+            con.commit()
+        if (ComboLombo.get() != ""): 
+            cursor.execute("""INSERT INTO tablet8.catodo (Data, Sala, Forno, Variavel, Valor, Usuario) VALUES (%s,%s,%s,%s,%s,%s)""",(data,"3", var_forno_atual, "lombo", ComboLombo.get(), user))
+            con.commit()
+
+
     #================== LIMPA ENTRY CATODO APOS ENVIO DADOS====================================    
         entry_banho.delete(0, END)
         entry_temperatura.delete(0, END)
@@ -638,9 +646,10 @@ def catodo():
     label_cuba_selecionada = Label(catodo, text=var_forno_atual ,font="century 34", bg="BLUE", fg="WHITE").place(x = 800, y=130 , width=100, height= 45)
 
     #===============================CRIA LABEL ULTIMOS VALORES COLETADOS NIVEL BANHO ====================================
-    cursor.execute("SELECT Banho FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
-    valores_lidos_banho = cursor.fetchall()
 
+    cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'banho' order by Data desc")
+    valores_lidos_banho = cursor.fetchall()
+    
     conte_linhas_nivelbanho = len(valores_lidos_banho)
 
     if (conte_linhas_nivelbanho < 1): 
@@ -659,7 +668,7 @@ def catodo():
         antepenultima_banho = Label(catodo, text=valores_lidos_banho[2] ,font="century 20", bg="WHITE", fg="black").place(x=1130, y=245 , width=100, height= 53)
 
     #===============================CRIA LABEL ULTIMOS VALORES COLETADOS NIVEL METAL ====================================
-    cursor.execute("SELECT Metal FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+    cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'metal' order by Data desc")
     valores_lidos_metal = cursor.fetchall()
 
     conte_linhas_nivelmetal = len(valores_lidos_metal)
@@ -683,7 +692,7 @@ def catodo():
 
 
     #===============================CRIA LABEL ULTIMOS VALORES COLETADOS NIVEL TEMPERATURA ====================================
-    cursor.execute("SELECT Temperatura FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+    cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'temperatura' order by Data desc")
     valores_lidos_temperatura = cursor.fetchall()
 
     conte_linhas_temp = len(valores_lidos_temperatura)
@@ -705,7 +714,7 @@ def catodo():
 
     
     #===============================CRIA LABEL ULTIMOS VALORES COLETADOS LOMBO ====================================
-    cursor.execute("SELECT Lombo FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+    cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'lombo' order by Data desc")
     valores_lidos_lombo = cursor.fetchall()
 
     conte_linhas_lombo = len(valores_lidos_lombo)
@@ -727,7 +736,7 @@ def catodo():
 
 
     #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA NIVEL BANHO ====================================
-    cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+    cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'banho' order by Data desc")
     valores_lidos_banho_data = cursor.fetchall()
 
     conte_linhas_banho_data = len(valores_lidos_banho_data)
@@ -750,7 +759,7 @@ def catodo():
 
 
     #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA NIVEL METAL ====================================
-    cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+    cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'metal' order by Data desc")
     valores_lidos_metal_data = cursor.fetchall()
 
     conte_linhas_metal_data = len(valores_lidos_metal_data)
@@ -772,7 +781,7 @@ def catodo():
     
 
     #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA TEMPERATURA ====================================
-    cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+    cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'temperatura' order by Data desc")
     valores_lidos_temperatura_data = cursor.fetchall()
 
     conte_linhas_temperatura_data = len(valores_lidos_temperatura_data)
@@ -794,7 +803,7 @@ def catodo():
     
 
     #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA LOMBO ====================================
-    cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+    cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'lombo' order by Data desc")
     valores_lidos_lombo_data = cursor.fetchall()
 
     conte_linhas_lombo_data = len(valores_lidos_lombo_data)
@@ -840,7 +849,7 @@ def catodo():
     #unidade_lombo_penultima = Label(catodo, text="A" ,font="century 20", bg="WHITE", fg="black").place(x=1030, y=545 , width=50, height= 53)
     #unidade_lombo_antepenultima_banho = Label(catodo, text="ºAR" ,font="century 20", bg="WHITE", fg="black").place(x=1230, y=545 , width=50, height= 53)
 
-     #================== CRIA BOTAO ENVIAR DADOS CATODO ====================================
+    #================== CRIA BOTAO ENVIAR DADOS CATODO ====================================
     bt_enviar_dados_catodo = Button(catodo, text="E  N  V  I  A  R", width=15, height=4, font="Arial 25", background="#CDC9C9", command = enviar_catodo).place(x=740, y=185, width=400, height=57)
     
    
@@ -858,7 +867,7 @@ def catodo():
             entry_cuba.delete(0, END)
 
             #===============================ATUALIZA LABEL ULTIMOS VALORES BANHO ============================ 
-            cursor.execute("SELECT Banho FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+            cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'banho' order by Data desc")
             valores_lidos_banho = cursor.fetchall()
 
             conte_linhas_nivelbanho = len(valores_lidos_banho)
@@ -879,7 +888,7 @@ def catodo():
                 antepenultima_banho = Label(catodo, text=valores_lidos_banho[2] ,font="century 20", bg="WHITE", fg="black").place(x=1130, y=245 , width=100, height= 53)
 
             #===============================CRIA LABEL ULTIMOS VALORES COLETADOS NIVEL METAL ====================================
-            cursor.execute("SELECT Metal FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+            cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'metal' order by Data desc")
             valores_lidos_metal = cursor.fetchall()
 
             conte_linhas_nivelmetal = len(valores_lidos_metal)
@@ -903,7 +912,7 @@ def catodo():
 
 
             #===============================CRIA LABEL ULTIMOS VALORES COLETADOS NIVEL TEMPERATURA ====================================
-            cursor.execute("SELECT Temperatura FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+            cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'temperatura' order by Data desc")
             valores_lidos_temperatura = cursor.fetchall()
 
             conte_linhas_temp = len(valores_lidos_temperatura)
@@ -925,7 +934,7 @@ def catodo():
 
             
             #===============================CRIA LABEL ULTIMOS VALORES COLETADOS LOMBO ====================================
-            cursor.execute("SELECT Lombo FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+            cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'lombo' order by Data desc")
             valores_lidos_lombo = cursor.fetchall()
 
             conte_linhas_lombo = len(valores_lidos_lombo)
@@ -947,7 +956,7 @@ def catodo():
 
 
             #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA NIVEL BANHO ====================================
-            cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+            cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'banho' order by Data desc")
             valores_lidos_banho_data = cursor.fetchall()
 
             conte_linhas_banho_data = len(valores_lidos_banho_data)
@@ -970,7 +979,7 @@ def catodo():
 
 
             #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA NIVEL METAL ====================================
-            cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+            cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'metal' order by Data desc")
             valores_lidos_metal_data = cursor.fetchall()
 
             conte_linhas_metal_data = len(valores_lidos_metal_data)
@@ -992,7 +1001,7 @@ def catodo():
             
 
             #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA TEMPERATURA ====================================
-            cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+            cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'temperatura' order by Data desc")
             valores_lidos_temperatura_data = cursor.fetchall()
 
             conte_linhas_temperatura_data = len(valores_lidos_temperatura_data)
@@ -1014,7 +1023,7 @@ def catodo():
             
 
             #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA LOMBO ====================================
-            cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+            cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'lombo' order by Data desc")
             valores_lidos_lombo_data = cursor.fetchall()
 
             conte_linhas_lombo_data = len(valores_lidos_lombo_data)
@@ -1076,7 +1085,7 @@ def catodo():
              mensagem()
              
         #===============================ATUALIZA LABEL ULTIMOS VALORES BANHO ============================ 
-        cursor.execute("SELECT Banho FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'banho' order by Data desc")
         valores_lidos_banho = cursor.fetchall()
 
         conte_linhas_nivelbanho = len(valores_lidos_banho)
@@ -1097,7 +1106,7 @@ def catodo():
             antepenultima_banho = Label(catodo, text=valores_lidos_banho[2] ,font="century 20", bg="WHITE", fg="black").place(x=1130, y=245 , width=100, height= 53)
 
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS NIVEL METAL ====================================
-        cursor.execute("SELECT Metal FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'Metal' order by Data desc")
         valores_lidos_metal = cursor.fetchall()
 
         conte_linhas_nivelmetal = len(valores_lidos_metal)
@@ -1121,7 +1130,7 @@ def catodo():
 
 
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS NIVEL TEMPERATURA ====================================
-        cursor.execute("SELECT Temperatura FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'temperatura' order by Data desc")
         valores_lidos_temperatura = cursor.fetchall()
 
         conte_linhas_temp = len(valores_lidos_temperatura)
@@ -1143,7 +1152,7 @@ def catodo():
 
         
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS LOMBO ====================================
-        cursor.execute("SELECT Lombo FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'lombo' order by Data desc")
         valores_lidos_lombo = cursor.fetchall()
 
         conte_linhas_lombo = len(valores_lidos_lombo)
@@ -1165,7 +1174,7 @@ def catodo():
 
 
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA NIVEL BANHO ====================================
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'banho' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_banho_data = len(valores_lidos_banho_data)
@@ -1188,7 +1197,7 @@ def catodo():
 
 
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA NIVEL METAL ====================================
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'metal' order by Data desc")
         valores_lidos_metal_data = cursor.fetchall()
 
         conte_linhas_metal_data = len(valores_lidos_metal_data)
@@ -1210,7 +1219,7 @@ def catodo():
         
 
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA TEMPERATURA ====================================
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'temperatura' order by Data desc")
         valores_lidos_temperatura_data = cursor.fetchall()
 
         conte_linhas_temperatura_data = len(valores_lidos_temperatura_data)
@@ -1232,7 +1241,7 @@ def catodo():
         
 
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA LOMBO ====================================
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'lombo' order by Data desc")
         valores_lidos_lombo_data = cursor.fetchall()
 
         conte_linhas_lombo_data = len(valores_lidos_lombo_data)
@@ -1297,7 +1306,7 @@ def catodo():
    
 
         #===============================ATUALIZA LABEL ULTIMOS VALORES BANHO ============================ 
-        cursor.execute("SELECT Banho FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'banho' order by Data desc")
         valores_lidos_banho = cursor.fetchall()
 
         conte_linhas_nivelbanho = len(valores_lidos_banho)
@@ -1318,7 +1327,7 @@ def catodo():
             antepenultima_banho = Label(catodo, text=valores_lidos_banho[2] ,font="century 20", bg="WHITE", fg="black").place(x=1130, y=245 , width=100, height= 53)
 
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS NIVEL METAL ====================================
-        cursor.execute("SELECT Metal FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'metal' order by Data desc")
         valores_lidos_metal = cursor.fetchall()
 
         conte_linhas_nivelmetal = len(valores_lidos_metal)
@@ -1342,7 +1351,7 @@ def catodo():
 
 
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS NIVEL TEMPERATURA ====================================
-        cursor.execute("SELECT Temperatura FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'temperatura' order by Data desc")
         valores_lidos_temperatura = cursor.fetchall()
 
         conte_linhas_temp = len(valores_lidos_temperatura)
@@ -1364,7 +1373,7 @@ def catodo():
 
         
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS LOMBO ====================================
-        cursor.execute("SELECT Lombo FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'lombo' order by Data desc")
         valores_lidos_lombo = cursor.fetchall()
 
         conte_linhas_lombo = len(valores_lidos_lombo)
@@ -1386,7 +1395,7 @@ def catodo():
 
 
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA NIVEL BANHO ====================================
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'banho' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_banho_data = len(valores_lidos_banho_data)
@@ -1409,7 +1418,7 @@ def catodo():
 
 
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA NIVEL METAL ====================================
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'metal' order by Data desc")
         valores_lidos_metal_data = cursor.fetchall()
 
         conte_linhas_metal_data = len(valores_lidos_metal_data)
@@ -1431,7 +1440,7 @@ def catodo():
         
 
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA TEMPERATURA ====================================
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'temperatura' order by Data desc")
         valores_lidos_temperatura_data = cursor.fetchall()
 
         conte_linhas_temperatura_data = len(valores_lidos_temperatura_data)
@@ -1453,7 +1462,7 @@ def catodo():
         
 
         #===============================CRIA LABEL ULTIMOS VALORES COLETADOS DATA LOMBO ====================================
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(var_forno_atual) + " and Variavel = 'lombo' order by Data desc")
         valores_lidos_lombo_data = cursor.fetchall()
 
         conte_linhas_lombo_data = len(valores_lidos_lombo_data)
