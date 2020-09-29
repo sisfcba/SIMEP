@@ -1,7 +1,7 @@
 '''
 Sistema de Medições de Processo
 v0.1 - Initial Commit: Marcelo Souza / Robson Soares - 29/09/2020
-
+---
 '''
 import _tkinter
 from tkinter import *
