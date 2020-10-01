@@ -83,7 +83,7 @@ def relatorio_catodo():
         cuba_par_19a36 = Label(rel_catodo, text=inicio+118 ,font="century 12", bg="WHITE", fg="black").place(x=1005, y=espy_ini, width=60)
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE BANHO=====================================================================
-        cursor.execute("SELECT Banho FROM tablet8.catodo where Forno = " + str(inicio) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio) + " and Variavel = 'banho' order by Data desc")
         valores_lidos_banho = cursor.fetchall()
         print (valores_lidos_banho)#
         
@@ -91,7 +91,7 @@ def relatorio_catodo():
         print (conte_linhas_nivelbanho)#
      
         
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio) + " and Variavel = 'banho' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -113,12 +113,12 @@ def relatorio_catodo():
                 ultima_banho = Label(rel_catodo, text= valores_lidos_banho[0], font="century 12", bg="WHITE", fg="black").place(x=55, y=espy_ini, width=60)
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE TEMPERATURA=====================================================================
-        cursor.execute("SELECT Temperatura FROM tablet8.catodo where Forno = " + str(inicio) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio) + " and Variavel = 'temperatura' order by Data desc")
         valores_lidos_temperatura = cursor.fetchall()
         
         conte_linhas_temperatura = len(valores_lidos_temperatura)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio) + " and Variavel = 'temperatura' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -142,12 +142,12 @@ def relatorio_catodo():
         
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE METAL=====================================================================
-        cursor.execute("SELECT Metal FROM tablet8.catodo where Forno = " + str(inicio) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio) + " and Variavel = 'metal' order by Data desc")
         valores_lidos_metal = cursor.fetchall()
         
         conte_linhas_metal = len(valores_lidos_metal)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio) + " and Variavel = 'metal' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -171,12 +171,12 @@ def relatorio_catodo():
                 ultima_metal = Label(rel_catodo, text= valores_lidos_metal[0], font="century 12", bg="WHITE", fg="black").place(x=175, y=espy_ini, width=60)
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE LOMBO=====================================================================
-        cursor.execute("SELECT Lombo FROM tablet8.catodo where Forno = " + str(inicio) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio) + " and Variavel = 'lombo'  order by Data desc")
         valores_lidos_lombo = cursor.fetchall()
         
         conte_linhas_lombo = len(valores_lidos_lombo)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio) + " and Variavel = 'lombo' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -198,12 +198,12 @@ def relatorio_catodo():
                 ultima_lombo = Label(rel_catodo, text= valores_lidos_lombo[0], font="century 12", bg="WHITE", fg="black").place(x=235, y=espy_ini, width=60)
 
          #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE BANHO=====================================================================
-        cursor.execute("SELECT Banho FROM tablet8.catodo where Forno = " + str(inicio+18) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio+18) + " and Variavel = 'banho' order by Data desc")
         valores_lidos_banho = cursor.fetchall()
         
         conte_linhas_nivelbanho = len(valores_lidos_banho)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+18) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+18) + " and Variavel = 'banho'  order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -226,12 +226,12 @@ def relatorio_catodo():
   
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE TEMPERATURA=====================================================================
-        cursor.execute("SELECT Temperatura FROM tablet8.catodo where Forno = " + str(inicio+18) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio+18) + " and Variavel = 'temperatura'  order by Data desc")
         valores_lidos_temperatura = cursor.fetchall()
         
         conte_linhas_temperatura = len(valores_lidos_temperatura)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+18) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+18) + " and Variavel = 'temperatura'  order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -254,13 +254,13 @@ def relatorio_catodo():
         
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE METAL=====================================================================
-        cursor.execute("SELECT Metal FROM tablet8.catodo where Forno = " + str(inicio+18) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio+18) + " and Variavel = 'metal'  order by Data desc")
         valores_lidos_metal = cursor.fetchall()
 
         conte_linhas_metal = len(valores_lidos_metal)
         
         conte_linhas_metal = len(valores_lidos_metal)
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+18) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+18) + " and Variavel = 'metal'  order by Data desc")
         
         valores_lidos_banho_data = cursor.fetchall()
 
@@ -282,12 +282,12 @@ def relatorio_catodo():
                 ultima_metal = Label(rel_catodo, text= valores_lidos_metal[0], font="century 12", bg="WHITE", fg="black").place(x=515, y=espy_ini, width=60)
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE LOMBO=====================================================================
-        cursor.execute("SELECT Lombo FROM tablet8.catodo where Forno = " + str(inicio+18) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio+18) + " and Variavel = 'lombo' order by Data desc")
         valores_lidos_lombo = cursor.fetchall()
         
         conte_linhas_lombo = len(valores_lidos_lombo)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+18) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+18) + " and Variavel = 'lombo' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -309,12 +309,12 @@ def relatorio_catodo():
                 ultima_lombo = Label(rel_catodo, text= valores_lidos_lombo[0], font="century 12", bg="WHITE", fg="black").place(x=575, y=espy_ini, width=60)
 
          #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE BANHO=====================================================================
-        cursor.execute("SELECT Banho FROM tablet8.catodo where Forno = " + str(inicio+100) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio+100) + "  and Variavel = 'banho' order by Data desc")
         valores_lidos_banho = cursor.fetchall()
         
         conte_linhas_nivelbanho = len(valores_lidos_banho)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+100) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+100) + "  and Variavel = 'banho' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -337,12 +337,12 @@ def relatorio_catodo():
   
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE TEMPERATURA=====================================================================
-        cursor.execute("SELECT Temperatura FROM tablet8.catodo where Forno = " + str(inicio+100) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio+100) + " and Variavel = 'temperatura' order by Data desc")
         valores_lidos_temperatura = cursor.fetchall()
         
         conte_linhas_temperatura = len(valores_lidos_temperatura)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+100) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+100) + " and Variavel = 'temperatura' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -365,12 +365,12 @@ def relatorio_catodo():
         
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE METAL=====================================================================
-        cursor.execute("SELECT Metal FROM tablet8.catodo where Forno = " + str(inicio+100) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio+100) + " and Variavel = 'metal' order by Data desc")
         valores_lidos_metal = cursor.fetchall()
         
         conte_linhas_metal = len(valores_lidos_metal)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+100) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+100) + " and Variavel = 'metal' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -392,12 +392,12 @@ def relatorio_catodo():
                 ultima_metal = Label(rel_catodo, text= valores_lidos_metal[0], font="century 12", bg="WHITE", fg="black").place(x=855, y=espy_ini, width=60)
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE LOMBO=====================================================================
-        cursor.execute("SELECT Lombo FROM tablet8.catodo where Forno = " + str(inicio+100) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio+100) + " and Variavel = 'lombo' order by Data desc")
         valores_lidos_lombo = cursor.fetchall()
         
         conte_linhas_lombo = len(valores_lidos_lombo)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+100) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+100) + " and Variavel = 'lombo' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -419,12 +419,12 @@ def relatorio_catodo():
                 ultima_lombo = Label(rel_catodo, text= valores_lidos_lombo[0], font="century 12", bg="WHITE", fg="black").place(x=905, y=espy_ini, width=60)
 
          #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE BANHO=====================================================================
-        cursor.execute("SELECT Banho FROM tablet8.catodo where Forno = " + str(inicio+118) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio+118) + " and Variavel = 'banho' order by Data desc")
         valores_lidos_banho = cursor.fetchall()
         
         conte_linhas_nivelbanho = len(valores_lidos_banho)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+118) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+118) + " and Variavel = 'banho' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -447,12 +447,12 @@ def relatorio_catodo():
   
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE TEMPERATURA=====================================================================
-        cursor.execute("SELECT Temperatura FROM tablet8.catodo where Forno = " + str(inicio+118) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio+118) + " and Variavel = 'temperatura' order by Data desc")
         valores_lidos_temperatura = cursor.fetchall()
         
         conte_linhas_temperatura = len(valores_lidos_temperatura)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+118) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+118) + " and Variavel = 'temperatura' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -475,12 +475,12 @@ def relatorio_catodo():
         
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE METAL=====================================================================
-        cursor.execute("SELECT Metal FROM tablet8.catodo where Forno = " + str(inicio+118) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio+118) + " and Variavel = 'metal' order by Data desc")
         valores_lidos_metal = cursor.fetchall()
         
         conte_linhas_metal = len(valores_lidos_metal)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+118) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+118) + " and Variavel = 'metal' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
@@ -502,12 +502,12 @@ def relatorio_catodo():
                 ultima_metal = Label(rel_catodo, text= valores_lidos_metal[0], font="century 12", bg="WHITE", fg="black").place(x=1185, y=espy_ini, width=60)
 
         #==================RETORNA DO BANCO DE DADOS A ULTIMA MEDICAO DE LOMBO=====================================================================
-        cursor.execute("SELECT Lombo FROM tablet8.catodo where Forno = " + str(inicio+118) + " order by Data desc")
+        cursor.execute("SELECT Valor FROM tablet8.catodo where Forno = " + str(inicio+118) + " and Variavel = 'lombo' order by Data desc")
         valores_lidos_lombo = cursor.fetchall()
         
         conte_linhas_lombo = len(valores_lidos_lombo)
 
-        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+118) + " order by Data desc")
+        cursor.execute("SELECT Data FROM tablet8.catodo where Forno = " + str(inicio+118) + " and Variavel = 'lombo' order by Data desc")
         valores_lidos_banho_data = cursor.fetchall()
 
         conte_linhas_data = len( valores_lidos_banho_data)
